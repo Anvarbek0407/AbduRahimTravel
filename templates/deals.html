@@ -1,0 +1,135 @@
+{% extends 'main.html' %} {% load static %}
+{% block content %}
+
+  <div class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>Haftalik takliflarimiz bilan tanishing</h4>
+          <h2>Ajoyib narxlar va boshqalar</h2>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <form id="search-form" name="gs" method="submit" role="search" action="#">
+            <div class="row">
+              <div class="col-lg-2">
+                <h4>qulay narxni tanlang:</h4>
+              </div>
+              <div class="col-lg-4">
+                  <fieldset>
+                      <select name="country" class="form-select" aria-label="Default select example" id="chooseLocation" onChange="this.form.click()">
+                          <option selected>Destinations</option>
+                          {% for country in countries %}
+                          <option type="checkbox"  value="{{country.id}}">{{country.name}}</option>
+                          {% endfor %}
+                      </select>
+                  </fieldset>
+              </div>
+              <div class="col-lg-4">
+                  <fieldset>
+                      <select name="price" class="form-select" aria-label="Default select example" id="choosePrice" onChange="this.form.click()">
+                          <option selected>Price Range</option>
+                          {% for prince in princes %}
+                          <option value="{{prince.id}}">${{prince.startprice}} - ${{prince.endprice}}</option>
+                          {% endfor %}
+                      </select>
+                  </fieldset>
+              </div>
+              <div class="col-lg-2">                        
+                  <fieldset>
+                      <button class="border-button">Search Results</button>
+                  </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="amazing-deals">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="section-heading text-center">
+            <h2>Har bir shaharda haftalik eng yaxshi takliflar</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          </div>
+        </div>
+        {% for deal in deals %}
+        <div class="col-lg-6 col-sm-6">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="image">
+                  <img src="{{deal.image.url}}" alt="">
+                </div>
+              </div>
+              <div class="col-lg-6 align-self-center">
+                <div class="content">
+                  <span class="info">*{{deal.week}}</span>
+                  <h4>{{deal.title}}</h4>
+                  <div class="row">
+                    <div class="col-6">
+                      <i class="fa fa-clock"></i>
+                      <span class="list">{{deal.day}} Days</span>
+                    </div>
+                    <div class="col-6">
+                      <i class="fa fa-map"></i>
+                      <span class="list">Daily Places</span>
+                    </div>
+                  </div>
+                  <p>{{deal.content}}</p>
+                  <div class="main-button">
+                    <a href="{% url 'reservation' deal.id %}">Make a Reservation</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="col-lg-12">
+          <ul class="page-numbers">
+            {% if countries.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ countries.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ countries.number }} of {{ countries.paginator.num_pages }}.
+        </span>
+
+        {% if countries.has_next %}
+            <a href="?page={{ countries.next_page_number }}">oldingat</a>
+            <a href="?page={{ countries.paginator.num_pages }}">orqaga &raquo;</a>
+        {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="call-to-action">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Are You Looking To Travel ?</h2>
+          <h4>Make A Reservation By Clicking The Button</h4>
+        </div>
+        <div class="col-lg-4">
+          <div class="border-button">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
