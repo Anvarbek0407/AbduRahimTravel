@@ -15,7 +15,7 @@ def home(request):
     page_obj = paginator.get_page(page_number)
     context['countries'] = page_obj
 
-  
+    
     return render(request, 'index.html', context)
 
 def about(request, id):
